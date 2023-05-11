@@ -1,0 +1,73 @@
+#############################
+Q1.
+
+/////////////Databaseinfo.java///////////////
+
+import java.sql.*;
+public class Databaseinfo
+{
+ public static void main(String[] args)throws Exception {
+ Class.forName("org.postgresql.Driver");
+ Connection con =
+DriverManager.getConnection("jdbc:postgresql://localhost:5432/emp","postgres",
+"postgres");
+ DatabaseMetaData metaData = con.getMetaData();
+ // Display information about the database
+ System.out.println("Database Name: " + metaData.getDatabaseProductName());
+ System.out.println("Database Version: " +
+metaData.getDatabaseProductVersion());
+ System.out.println("Driver Name: " + metaData.getDriverName());
+ System.out.println("Driver Version: " + metaData.getDriverVersion());
+ System.out.println("\nTables:");
+ ResultSet tables = metaData.getTables(null, null, null, new String[]{"TABLE"});
+ while (tables.next()) {
+ String tableName = tables.getString("TABLE_NAME");
+ System.out.println(tableName);
+ }
+ con.close();
+}
+ }
+
+#############################
+Q2.
+
+/////////ThreadLifecycle.java///////////////////
+
+import java.util.Random;
+public class ThreadLifecycle implements Runnable {
+ private String threadName;
+ private Thread thread;
+ public ThreadLifecycle(String name) {
+ threadName = name;
+ System.out.println("Creating " + threadName);
+ }
+ public void run() {
+ System.out.println("Running " + threadName);
+ Random random = new Random();
+ try {
+ for (int i = 1; i <= 5; i++) {
+ System.out.println(threadName + ": " + i);
+ int sleepTime = random.nextInt(5000);
+ System.out.println(threadName + " sleep for " + sleepTime + "
+milliseconds");
+ Thread.sleep(sleepTime);
+ }
+ } catch (InterruptedException e) {
+ System.out.println("Thread " + threadName + " interrupted.");
+ }
+ System.out.println("Thread " + threadName + " exiting.");
+ }
+ public void start() {
+ System.out.println("Starting " + threadName);
+ if (thread == null) {
+ thread = new Thread(this, threadName);
+ thread.start();
+ }
+ }
+ public static void main(String args[]) {
+ ThreadLifecycle thread1 = new ThreadLifecycle("Thread 1");
+ thread1.start();
+ ThreadLifecycle thread2 = new ThreadLifecycle("Thread 2");
+ thread2.start();
+ }
+}

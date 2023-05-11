@@ -1,0 +1,52 @@
+#####################
+Q1.
+
+
+apcahe->bin->terminal(sh startup.sh)
+apache->webapps->create file with ur name->save jsp file
+
+
+///////////sp28.jsp/////////////
+<%
+ String inputString = request.getParameter("uname");
+ String reverseString = null;
+ if(inputString != null && !inputString.trim().isEmpty()) {
+ reverseString = new StringBuilder(inputString).reverse().toString();
+ }
+ out.println("Reverse String is\t"+ reverseString);
+%>
+
+
+Html code
+
+/////////////sp28.html//////////////
+<html>
+<body>
+<form action="sp28.jsp" method="post">
+<input type="text" name="uname">
+<input type="submit">
+</form>
+</body>
+</html>
+
+#############################
+Q2.
+
+////////////// ThreadNameExample.java///////////////////////
+
+public class ThreadNameExample implements Runnable {
+ public void run() {
+ System.out.println("Currently executing thread: "
++Thread.currentThread().getName());
+ }
+ public static void main(String[] args) {
+ // Creating 3 threads
+ Thread t1 = new Thread(new ThreadNameExample());
+ Thread t2 = new Thread(new ThreadNameExample());
+ Thread t3 = new Thread(new ThreadNameExample());
+ // Starting the threads
+ t1.start();
+ t2.start();
+ t3.start();
+ }
+}

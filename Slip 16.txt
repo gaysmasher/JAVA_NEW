@@ -1,0 +1,91 @@
+###########################
+Q1.
+
+////////////TreeSetDemo.java///////////////
+
+import java.util.*;
+public class TreeSetDemo {
+ public static void main(String[] args) {
+ TreeSet<String> colors = new TreeSet<String>();
+ colors.add("Red");
+ colors.add("Green");
+ colors.add("Blue");
+ colors.add("Yellow");
+ System.out.println("Colors in ascending order:");
+ for (String color : colors) {
+ System.out.println(color);
+ }
+ }
+}
+
+##################################
+Q2.
+
+///////////teacher.java/////////////////
+
+terminal->export CLASSPATH=(postgress jar file location):.
+
+
+have to create table in postgress
+(
+	sudo -i -u postgres psql
+
+Database::-
+sudo su - postgres
+[sudo] password for ritu:
+postgres@ritu-VirtualBox:~$ psql
+psql (14.7 (Ubuntu 14.7-0ubuntu0.22.04.1))
+Type "help" for help.
+postgres=# create database product;
+CREATE DATABASE
+postgres=# \c
+You are now connected to database "postgres" as user "postgres".
+postgres=# \c product
+You are now connected to database "product" as user "postgres".
+product=# create table pro(pid int ,pname varchar(20),price int);
+CREATE TABLE
+product=# select * from pro;
+pid | pname | price
+product=# select * from pro;
+pid | pname | price
+-----+-------+-------
+(0 rows)
+product=# select * from pro;
+pid | pname | price  
+
+)
+
+import java.sql.*;
+public class teacher
+{
+ public static void main(String args[]){
+ Connection con;
+ try{
+ Class.forName("org.postgresql.Driver");
+con =
+DriverManager.getConnection("jdbc:postgresql://localhost:5432/product","postgres","postg
+res");
+ if(con==null)
+ {
+ System.out.println("Connection Failed....");
+System.exit(1);
+ }
+ Statement stmt=con.createStatement();
+ ResultSet rs=stmt.executeQuery("select * From teacher Where
+subje='java'");
+ System.out.println("teachno\t"+"teachname\t"+"subje");
+ while(rs.next())
+ {
+
+System.out.println("\n"+rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3));
+ }
+ con.close();
+ rs.close();
+ stmt.close();
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ }
+}
